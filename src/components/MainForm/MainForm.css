@@ -8,14 +8,6 @@
   outline: none;
 }
 
-/* 
-.main_content {
-  font-weight: bold;
-  display: flex;
-  flex: 1;
-  justify-content: space-between;
-} */
-
 .main_statement {
   width: 100%;
 }
@@ -28,14 +20,28 @@
   width: 100%;
 }
 
+.name_divade_chapter {
+  width: 100%;
+  text-align: center;
+}
+
+.name_chapter {
+  width: 50%;
+  text-align: center;
+}
+
 .right_column {
   display: flex;
   align-items: flex-start; 
   flex-direction: column;
-  justify-content: space-between; 
+  justify-content: space-between;
+  align-content: space-around; 
   width: 50%;
   flex-wrap: wrap;
+}
 
+.left_column {
+  width: 50%;
 }
 
 .paragraph {
