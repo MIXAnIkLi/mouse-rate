@@ -1,0 +1,57 @@
+.button_add {
+  font-size: 16px;
+  line-height: 1.2;
+  height: 16px;
+}
+
+.button_add:focus {
+  outline: none;
+}
+
+/* 
+.main_content {
+  font-weight: bold;
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+} */
+
+.main_statement {
+  width: 100%;
+}
+
+.block {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.right_column {
+  display: flex;
+  align-items: flex-start; 
+  flex-direction: column;
+  justify-content: space-between; 
+  width: 50%;
+  flex-wrap: wrap;
+
+}
+
+.paragraph {
+   text-align: center;
+   padding-bottom: 1rem;
+   font-weight: bold;
+}
+
+.month_income {
+  display: flex;
+    justify-content: end;
+    align-items: flex-end;
+}
+
+
+.name_chapter {
+  text-align: center;
+}
+

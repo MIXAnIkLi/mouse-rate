@@ -1,0 +1,41 @@
+
+.main_content {
+  font-weight: bold;
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+}
+
+.main_statement {
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
+  flex-wrap: wrap;
+  
+}
+
+.right_column {
+  display: flex;
+  align-items: center; 
+  flex-direction: column;
+  justify-content: space-between; 
+  width: 50%;
+  flex-wrap: wrap;
+
+}
+
+.paragraph {
+   text-align: center;
+   padding-bottom: 1rem;
+   font-weight: bold;
+}
+
+.month_income {
+  display: flex;
+    justify-content: end;
+    align-items: flex-end;
+}
+
+.name_chapter {
+  text-align: center;
+}

@@ -1,0 +1,20 @@
+.main_input {
+  display: flex;
+  align-items: center; 
+  padding-bottom: 1rem;
+}
+
+.InputInfoSpan {
+  font-weight: bold;
+}
+
+.IputInfo {
+  border: 1px solid #000;
+  font-weight: bold;
+  width: auto;
+  min-width: 50px;
+}
+
+.input_name {
+  width: 9rem;
+}
