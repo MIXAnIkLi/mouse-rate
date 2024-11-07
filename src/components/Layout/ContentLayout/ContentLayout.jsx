@@ -1,27 +1,33 @@
 import "./ContentLayout.css";
 import { Breadcrumb, Layout } from "antd";
 import EditableParagraph from "../../EditableParagraph";
-// import InputInfo from "../../InputInfo/InputInfo";
-// import AddedForm from "../../AddedForm/AddedForm";
 import MainForm from "../../MainForm/MainForm";
+
+
 
 export default function ContentLayout() {
   const { Content } = Layout;
+  const items = [
+    {
+      title: <a href="">All templates</a>,
+    },
+    {
+      title: <a href="">Rat Rase</a>,
+    },
+  ];
 
   return (
     <Content
       style={{
-        margin: "10px 150px 10px 150px",
+        margin: "30px 150px 90px 150px",
       }}
     >
       <Breadcrumb
+        items={items}
         style={{
           margin: "16px 0",
         }}
-      >
-        <Breadcrumb.Item>All templates</Breadcrumb.Item>
-        <Breadcrumb.Item>Rat Rase</Breadcrumb.Item>
-      </Breadcrumb>
+      />
       <div
         style={{
           padding: 10,
@@ -35,7 +41,6 @@ export default function ContentLayout() {
           <EditableParagraph placeholder={"Введите ваше имя"} />
           <EditableParagraph placeholder={"Введите имя аудитора"} />
         </div>
-
         <MainForm />
       </div>
     </Content>
