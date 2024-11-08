@@ -3,7 +3,7 @@ import "./MainForm.css";
 // import PropTypes from "prop-types";
 import AddedForm from "../AddedForm/AddedForm";
 import { useWatch } from "antd/es/form/Form";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import ButtonCash from "../ButtonCash";
 
 export default function MainForm() {
@@ -11,7 +11,7 @@ export default function MainForm() {
   const onFinish = (values) => {
     console.log("Received values of form:", values);
   };
-  
+
   // Income
   const earnings = useWatch("earnings", form);
   const capital_investments = useWatch("capital_investments", form);
@@ -50,7 +50,7 @@ export default function MainForm() {
   const debt_small_credit = useWatch("debt_small_credit", form);
   const debt_credit_bank = useWatch("debt_credit_bank", form);
   const passive_buisnes = useWatch("passive_buisnes", form);
-
+  const estate_in = useWatch("estate", form);
 
   useEffect(() => {
     const totalIncome =
@@ -62,8 +62,9 @@ export default function MainForm() {
     form.setFieldValue("all_income", totalIncome);
     const passive_income = totalIncome - parseFloat(earnings || 0);
     form.setFieldValue("passive_income", passive_income);
-    const cgildren_expenses_all = parseFloat(count_child || 0) * parseFloat(child_exp || 0);
-    form.setFieldValue('cgildren_expenses', cgildren_expenses_all)
+    const cgildren_expenses_all =
+      parseFloat(count_child || 0) * parseFloat(child_exp || 0);
+    form.setFieldValue("cgildren_expenses", cgildren_expenses_all);
     const all_expenses =
       parseFloat(tallage || 0) +
       parseFloat(mortageg_pay || 0) +
@@ -74,9 +75,9 @@ export default function MainForm() {
       parseFloat(other_expenses || 0) +
       parseFloat(cgildren_expenses || 0) +
       parseFloat(credit_bank || 0);
-    form.setFieldValue("all_expenses", all_expenses)
-    const month_income =  totalIncome - all_expenses
-    form.setFieldValue('month_income', month_income)
+    form.setFieldValue("all_expenses", all_expenses);
+    const month_income = totalIncome - all_expenses;
+    form.setFieldValue("month_income", month_income);
   }, [
     earnings,
     capital_investments,
@@ -94,30 +95,49 @@ export default function MainForm() {
     cgildren_expenses,
     credit_bank,
     count_child,
-    child_exp
+    child_exp,
   ]);
 
   function handleCashDay() {
-    const mortageg_new = parseFloat(mortageg || 0) - parseFloat(mortageg_pay || 0)
-    const credit_education_new = parseFloat(credit_education || 0) - parseFloat(credit_edu || 0)
-    const credit_automob_new = parseFloat(credit_automob || 0) - parseFloat(credit_auto || 0)
-    const credit_card_new = parseFloat(debt_credit_card || 0) - parseFloat(credit_card || 0)
-    const small_credits_new = parseFloat(debt_small_credit || 0) - parseFloat(small_credits || 0)
-    const credit_bank_new = parseFloat(debt_credit_bank || 0) - parseFloat(credit_bank || 0)
-    form.setFieldValue("mortageg", mortageg_new)
-    form.setFieldValue("credit_education", credit_education_new)
-    form.setFieldValue("credit_automob", credit_automob_new)
-    form.setFieldValue("debt_credit_card", credit_card_new)
-    form.setFieldValue("debt_small_credit", small_credits_new)
-    form.setFieldValue("debt_credit_bank", credit_bank_new)
+    const mortageg_new =
+      parseFloat(mortageg || 0) - parseFloat(mortageg_pay || 0);
+    const credit_education_new =
+      parseFloat(credit_education || 0) - parseFloat(credit_edu || 0);
+    const credit_automob_new =
+      parseFloat(credit_automob || 0) - parseFloat(credit_auto || 0);
+    const credit_card_new =
+      parseFloat(debt_credit_card || 0) - parseFloat(credit_card || 0);
+    const small_credits_new =
+      parseFloat(debt_small_credit || 0) - parseFloat(small_credits || 0);
+    const credit_bank_new =
+      parseFloat(debt_credit_bank || 0) - parseFloat(credit_bank || 0);
+    form.setFieldValue("mortageg", mortageg_new);
+    form.setFieldValue("credit_education", credit_education_new);
+    form.setFieldValue("credit_automob", credit_automob_new);
+    form.setFieldValue("debt_credit_card", credit_card_new);
+    form.setFieldValue("debt_small_credit", small_credits_new);
+    form.setFieldValue("debt_credit_bank", credit_bank_new);
   }
 
- 
-
-  function handleSubClick() {
-    form.setFieldValue("passive_buisnes", [...passive_buisnes || [], undefined])
+  function handleSubClickAdd() {
+    form.setFieldValue("passive_buisnes", [...(passive_buisnes || []), {}]);
+    // console.log(estate_in.map((e) => e.name_cost))
   }
-  
+
+  function handleSubClickRem(removedItem) {
+    console.log(removedItem)
+    if (!removedItem) {
+      return;
+    }
+    form.setFieldValue(
+      "passive_buisnes",
+      passive_buisnes.filter((item) => ((item?.name !== removedItem?.name) && (item?.name_cost !== removedItem?.name_cost)))
+    );
+  }
+
+  const setIn = () => {
+    // form.setFieldValue("passive_buisnes", value);
+  };
 
   return (
     <>
@@ -145,12 +165,14 @@ export default function MainForm() {
                 placeholder={"Недвижимость"}
                 placeholder_name={"Наименование"}
                 placeholder_cost={"Доход"}
+                value={cost_real_estate}
               />
               <AddedForm
                 name_main={"cost_buiznes"}
                 placeholder={"Ваш бизнес"}
                 placeholder_name={"Наименование"}
                 placeholder_cost={"Доход"}
+                value={cost_buizneses}
               />
             </div>
             <div className="right_column">
@@ -199,7 +221,7 @@ export default function MainForm() {
               <Form.Item name="other_expenses" label="Другие расходы">
                 <InputNumber placeholder="Другие расходы" />
               </Form.Item>
-              <Form.Item name="cgildren_expenses"  label="Расходы на детей">
+              <Form.Item name="cgildren_expenses" label="Расходы на детей">
                 <InputNumber disabled placeholder="Расходы на детей" />
               </Form.Item>
               <Form.Item name="credit_bank" label="Оплата кредита банка">
@@ -213,7 +235,7 @@ export default function MainForm() {
               <Form.Item name="child_exp" label="Расходы на ребенка">
                 <InputNumber placeholder="Расходы на ребенка" />
               </Form.Item>
-              <Form.Item  name="all_expenses" label="Общий расход">
+              <Form.Item name="all_expenses" label="Общий расход">
                 <InputNumber disabled placeholder="Общий расход" />
               </Form.Item>
             </div>
@@ -225,7 +247,7 @@ export default function MainForm() {
             name="month_income"
             label="Ежемесячный доход"
           >
-            <InputNumber  disabled placeholder="Ежемесячный доход" />
+            <InputNumber disabled placeholder="Ежемесячный доход" />
           </Form.Item>
         </div>
         <Typography.Title level={3} className="name_divade_chapter">
@@ -246,6 +268,7 @@ export default function MainForm() {
               placeholder_name={"Наименование"}
               placeholder_cost={"Цена"}
               placeholder_count={"Количество"}
+              // value={fondes}
             />
             <AddedForm
               three_item
@@ -254,7 +277,10 @@ export default function MainForm() {
               placeholder_name={"Наименование"}
               placeholder_cost={"Цена"}
               placeholder_count={"Первый взнос"}
-              onClick={handleSubClick}
+              onClickAdd={handleSubClickAdd}
+              onClickRem={handleSubClickRem}
+              // onChange={(e) => setIn(e.target.value)}
+              value={estate_in}
             />
             <AddedForm
               name_main={"buisnes"}
@@ -263,6 +289,7 @@ export default function MainForm() {
               placeholder_name={"Наименование"}
               placeholder_cost={"Цена"}
               placeholder_count={"Первый взнос"}
+              // value={buisnes}
             />
           </div>
           <div className="right_column">
@@ -289,14 +316,14 @@ export default function MainForm() {
               placeholder={"Пассивы (бизнес)"}
               placeholder_name={"Наименование"}
               placeholder_cost={"Цена"}
+              value={passive_buisnes}
             />
             <Form.Item name="debt_credit_bank" label="Кредит банка">
               <InputNumber placeholder="Кредит банка" />
             </Form.Item>
           </div>
-          <ButtonCash onClick={handleCashDay} className='button_cash'/>
+          <ButtonCash onClick={handleCashDay} className="button_cash" />
         </div>
-
       </Form>
     </>
   );

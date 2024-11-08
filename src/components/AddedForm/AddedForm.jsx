@@ -9,7 +9,10 @@ export default function AddedForm({
   placeholder_count,
   three_item,
   name_main,
-  onClick,
+  onClickAdd,
+  onClickRem,
+  onChange,
+  value,
 }) {
   return (
     <Form.List name={name_main}>
@@ -20,11 +23,14 @@ export default function AddedForm({
             <Button
               className="button_add"
               type="dashed"
-              onClick={(event) => { add(); onClick?.(event) } }
+              onClick={(event) => {
+                add();
+                onClickAdd?.(event);
+              }}
               icon={<PlusOutlined />}
             ></Button>
           </Form.Item>
-          {fields.map(({ key, name, ...restField }) => (
+          {fields.map(({ key, name, ...restField }, index) => (
             <Space
               key={key}
               style={{
@@ -43,7 +49,7 @@ export default function AddedForm({
                   },
                 ]}
               >
-                <Input placeholder={placeholder_name} />
+                <Input placeholder={placeholder_name} onChange={onChange}/>
               </Form.Item>
               {three_item && (
                 <Form.Item
@@ -71,7 +77,7 @@ export default function AddedForm({
               >
                 <InputNumber placeholder={placeholder_cost} />
               </Form.Item>
-              <MinusCircleOutlined onClick={() => remove(name)} />
+              <MinusCircleOutlined onClick={() => {remove(name); onClickRem?.(value?.[index])} }/>
             </Space>
           ))}
         </>
@@ -87,7 +93,8 @@ AddedForm.propTypes = {
   three_item: PropTypes.bool,
   placeholder_count: PropTypes.string,
   name_main: PropTypes.string.isRequired,
-  onClick:PropTypes.func
+  onClickAdd: PropTypes.func,
+  onClickRem: PropTypes.func,
+  onChange: PropTypes.func,
+  value: PropTypes.any,
 };
-
-
