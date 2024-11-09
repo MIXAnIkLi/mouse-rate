@@ -125,14 +125,14 @@ export default function MainForm() {
   }
 
   function handleSubClickRem(removedItem) {
-    console.log(removedItem)
     if (!removedItem) {
       return;
     }
     form.setFieldValue(
       "passive_buisnes",
-      passive_buisnes.filter((item) => ((item?.name !== removedItem?.name) && (item?.name_cost !== removedItem?.name_cost)))
+      passive_buisnes.filter((item) => (item?.name !== removedItem?.name || item?.name_cost !== removedItem?.name_cost))
     );
+    console.log(removedItem, passive_buisnes)
   }
 
   const setIn = () => {
