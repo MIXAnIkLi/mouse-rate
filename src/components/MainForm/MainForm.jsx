@@ -121,6 +121,7 @@ export default function MainForm() {
 
   function handleSubClickAdd() {
     form.setFieldValue("passive_buisnes", [...(passive_buisnes || []), {}]);
+
     // console.log(estate_in.map((e) => e.name_cost))
   }
 
@@ -130,13 +131,25 @@ export default function MainForm() {
     }
     form.setFieldValue(
       "passive_buisnes",
-      passive_buisnes.filter((item) => (item?.name !== removedItem?.name || item?.name_cost !== removedItem?.name_cost))
+      // passive_buisnes.filter((item) => (item?.name !== removedItem?.name || item?.name_cost !== removedItem?.name_cost))
+      passive_buisnes.filter((item) => (item?.index !== removedItem?.index))
     );
     console.log(removedItem, passive_buisnes)
   }
 
-  const setIn = () => {
-    // form.setFieldValue("passive_buisnes", value);
+  const handelChangeIn = (event, item) => {
+    const value_name = event.target.value
+    // console.log(passive_buisnes.map((e) => e?.index))
+    form.setFieldValue("passive_buisnes", ((passive_buisnes && Array.isArray(passive_buisnes)) ? passive_buisnes.map((e) => (item.index === e.index ? {
+      ...e,
+      name: value_name   
+    } : e)) : undefined))
+    passive_buisnes.map((e) => console.log(e.name))
+
+    console.log(estate_in[0])
+    console.log(passive_buisnes[0])
+    console.log(value_name)
+
   };
 
   return (
@@ -279,7 +292,7 @@ export default function MainForm() {
               placeholder_count={"Первый взнос"}
               onClickAdd={handleSubClickAdd}
               onClickRem={handleSubClickRem}
-              // onChange={(e) => setIn(e.target.value)}
+              onChange={handelChangeIn}
               value={estate_in}
             />
             <AddedForm

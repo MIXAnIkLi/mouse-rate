@@ -13,6 +13,7 @@ export default function AddedForm({
   onClickRem,
   onChange,
   value,
+  id_name,
 }) {
   return (
     <Form.List name={name_main}>
@@ -26,6 +27,7 @@ export default function AddedForm({
               onClick={(event) => {
                 add();
                 onClickAdd?.(event);
+                // onClickAddIndex?.(value[index])
               }}
               icon={<PlusOutlined />}
             ></Button>
@@ -39,6 +41,9 @@ export default function AddedForm({
               }}
               align="baseline"
             >
+              <Form.Item initialValue={index} {...restField} name={[name, "index"]}>
+                <Input style={{width:'2rem'}} disabled/>
+              </Form.Item>
               <Form.Item
                 {...restField}
                 name={[name, "name"]}
@@ -49,7 +54,7 @@ export default function AddedForm({
                   },
                 ]}
               >
-                <Input placeholder={placeholder_name} onChange={onChange}/>
+                <Input placeholder={placeholder_name} onChange={(event) => onChange(event, value?.[index])} />
               </Form.Item>
               {three_item && (
                 <Form.Item
@@ -77,7 +82,12 @@ export default function AddedForm({
               >
                 <InputNumber placeholder={placeholder_cost} />
               </Form.Item>
-              <MinusCircleOutlined onClick={() => {remove(name); onClickRem?.(value?.[index])} }/>
+              <MinusCircleOutlined
+                onClick={() => {
+                  remove(name);
+                  onClickRem?.(value?.[index]);
+                }}
+              />
             </Space>
           ))}
         </>
@@ -97,4 +107,5 @@ AddedForm.propTypes = {
   onClickRem: PropTypes.func,
   onChange: PropTypes.func,
   value: PropTypes.any,
+  id_name: PropTypes.number,
 };
