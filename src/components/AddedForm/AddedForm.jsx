@@ -17,7 +17,6 @@ export default function AddedForm({
 
 
 }) {
-  // const id_unique = crypto.randomUUID()
   return (
     <Form.List name={name_main}>
       {(fields, { add, remove }) => (
@@ -71,7 +70,7 @@ export default function AddedForm({
                     },
                   ]}
                 >
-                  <Input placeholder={placeholder_count} onChange={(event) => onChange(event, value?.[id])} name='name_cost'/>
+                  <Input placeholder={placeholder_count} onChange={(event) => onChange(event, value?.[id])} name='name_count'/>
                 </Form.Item>
               )}
               <Form.Item
@@ -84,7 +83,7 @@ export default function AddedForm({
                   },
                 ]}
               >
-                <Input placeholder={placeholder_cost} onChange={(event) => onChange(event, value?.[id])} nane='name_count'/>
+                <Input placeholder={placeholder_cost} onChange={(event) => onChange(event, value?.[id])} name='name_cost'/>
               </Form.Item>
               <MinusCircleOutlined
                 onClick={() => {

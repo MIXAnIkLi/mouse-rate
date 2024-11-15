@@ -32,12 +32,12 @@
 
 .right_column {
   width: 50%;
-  padding-right: 300px;
+  /* padding-right: 300px; */
 }
 
 .left_column {
   width: 50%;
-  padding-left: 350px;
+  /* padding-left: 350px; */
 }
 
 .paragraph {

@@ -8,9 +8,6 @@ import ButtonCash from "../ButtonCash";
 
 export default function MainForm() {
   const [form] = Form.useForm();
-  const onFinish = (values) => {
-    console.log("Received values of form:", values);
-  };
 
   // Income
   const earnings = useWatch("earnings", form);
@@ -69,9 +66,8 @@ export default function MainForm() {
       parseFloat(earnings || 0) +
       parseFloat(capital_investments || 0) +
       parseFloat(cost_real_estate || 0) +
-      parseFloat(cost_buiznes || 0) + 
-      parseFloat(dividend_count || 0)
-      ;
+      parseFloat(cost_buiznes || 0) +
+      parseFloat(dividend_count || 0);
     form.setFieldValue("all_income", totalIncome);
     const passive_income = totalIncome - parseFloat(earnings || 0);
     form.setFieldValue("passive_income", passive_income);
@@ -108,7 +104,7 @@ export default function MainForm() {
     credit_bank,
     count_child,
     child_exp,
-    dividend_count
+    dividend_count,
   ]);
 
   function handleCashDay() {
@@ -149,10 +145,9 @@ export default function MainForm() {
     );
   }
 
-  const handelChangeIn = (event,  item) => {
+  const handelChangeIn = (event, item) => {
     const value_name = event.target.value;
-
-    console.log(event.target)
+    console.log(event.target.name === 'name');
     form.setFieldValue(
       "passive_buisnes",
       passive_buisnes && Array.isArray(passive_buisnes)
@@ -160,8 +155,8 @@ export default function MainForm() {
             item.id === e.id
               ? {
                   ...e,
-                  [event.target.name]: value_name,
-                
+                  [event.target.name === 'name' ? event.target.name : 0]: value_name,
+                  name_cost: Number(item?.name_cost) && Number(item?.name_count) ? Number(item?.name_cost) - Number(item?.name_count) : []
                 }
               : e
           )
@@ -170,12 +165,12 @@ export default function MainForm() {
   };
 
   const handleChange = (event) => {
-    console.log(event)
-  }
+    console.log(event);
+  };
 
   return (
     <>
-      <Form form={form} name="dynamic_form_nest_item" onFinish={onFinish}>
+      <Form form={form} name="dynamic_form_nest_item">
         <Typography.Title level={3} className="name_divade_chapter">
           Ведомость доходов и расходов{" "}
         </Typography.Title>
