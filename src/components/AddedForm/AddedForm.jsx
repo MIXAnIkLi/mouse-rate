@@ -1,7 +1,8 @@
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
-import { Button, Form, Input, InputNumber, Space } from "antd";
+import { Button, Form, Input, Space } from "antd";
 import "./AddedForm.css";
 import PropTypes from "prop-types";
+
 export default function AddedForm({
   placeholder,
   placeholder_name,
@@ -13,8 +14,10 @@ export default function AddedForm({
   onClickRem,
   onChange,
   value,
-  id_name,
+
+
 }) {
+  // const id_unique = crypto.randomUUID()
   return (
     <Form.List name={name_main}>
       {(fields, { add, remove }) => (
@@ -25,14 +28,17 @@ export default function AddedForm({
               className="button_add"
               type="dashed"
               onClick={(event) => {
-                add();
-                onClickAdd?.(event);
-                // onClickAddIndex?.(value[index])
+                const id = crypto.randomUUID();
+                add({
+                  id
+                });
+                onClickAdd?.(event,id);
+                
               }}
               icon={<PlusOutlined />}
             ></Button>
           </Form.Item>
-          {fields.map(({ key, name, ...restField }, index) => (
+          {fields.map(({ key, name, ...restField }, id) => (
             <Space
               key={key}
               style={{
@@ -41,9 +47,7 @@ export default function AddedForm({
               }}
               align="baseline"
             >
-              <Form.Item initialValue={index} {...restField} name={[name, "index"]}>
-                <Input style={{width:'2rem'}} disabled/>
-              </Form.Item>
+              
               <Form.Item
                 {...restField}
                 name={[name, "name"]}
@@ -54,7 +58,7 @@ export default function AddedForm({
                   },
                 ]}
               >
-                <Input placeholder={placeholder_name} onChange={(event) => onChange(event, value?.[index])} />
+                <Input  placeholder={placeholder_name} onChange={(event) => onChange(event, value?.[id])} name='name'/>
               </Form.Item>
               {three_item && (
                 <Form.Item
@@ -67,7 +71,7 @@ export default function AddedForm({
                     },
                   ]}
                 >
-                  <InputNumber placeholder={placeholder_count} />
+                  <Input placeholder={placeholder_count} onChange={(event) => onChange(event, value?.[id])} name='name_cost'/>
                 </Form.Item>
               )}
               <Form.Item
@@ -80,12 +84,12 @@ export default function AddedForm({
                   },
                 ]}
               >
-                <InputNumber placeholder={placeholder_cost} />
+                <Input placeholder={placeholder_cost} onChange={(event) => onChange(event, value?.[id])} nane='name_count'/>
               </Form.Item>
               <MinusCircleOutlined
                 onClick={() => {
                   remove(name);
-                  onClickRem?.(value?.[index]);
+                  onClickRem?.(value?.[id]);
                 }}
               />
             </Space>

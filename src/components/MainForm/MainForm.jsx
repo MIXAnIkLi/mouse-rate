@@ -18,6 +18,12 @@ export default function MainForm() {
   const dividend = useWatch("dividend", form);
   const cost_real_estates = useWatch("cost_real_estate", form);
   const cost_buizneses = useWatch("cost_buiznes", form);
+  const dividend_count =
+    dividend && Array.isArray(dividend)
+      ? dividend.reduce((acc, curr) => {
+          return acc + (curr && curr.name_cost ? curr.name_cost : 0);
+        }, 0)
+      : 0;
   const cost_real_estate =
     cost_real_estates && Array.isArray(cost_real_estates)
       ? cost_real_estates.reduce((acc, curr) => {
@@ -42,6 +48,13 @@ export default function MainForm() {
   const credit_bank = useWatch("credit_bank", form);
   const count_child = useWatch("count_child", form);
   const child_exp = useWatch("child_exp", form);
+
+  // Active
+  // const saving = useWatch("saving", form);
+  const fondes = useWatch("fondes", form);
+  const estate_in = useWatch("estate", form);
+  const buisnes = useWatch("buisnes", form);
+
   // Passive
   const mortageg = useWatch("mortageg", form);
   const credit_education = useWatch("credit_education", form);
@@ -50,15 +63,15 @@ export default function MainForm() {
   const debt_small_credit = useWatch("debt_small_credit", form);
   const debt_credit_bank = useWatch("debt_credit_bank", form);
   const passive_buisnes = useWatch("passive_buisnes", form);
-  const estate_in = useWatch("estate", form);
 
   useEffect(() => {
     const totalIncome =
       parseFloat(earnings || 0) +
       parseFloat(capital_investments || 0) +
-      parseFloat(dividend || 0) +
       parseFloat(cost_real_estate || 0) +
-      parseFloat(cost_buiznes || 0);
+      parseFloat(cost_buiznes || 0) + 
+      parseFloat(dividend_count || 0)
+      ;
     form.setFieldValue("all_income", totalIncome);
     const passive_income = totalIncome - parseFloat(earnings || 0);
     form.setFieldValue("passive_income", passive_income);
@@ -81,7 +94,6 @@ export default function MainForm() {
   }, [
     earnings,
     capital_investments,
-    dividend,
     cost_real_estate,
     cost_buiznes,
     form,
@@ -96,6 +108,7 @@ export default function MainForm() {
     credit_bank,
     count_child,
     child_exp,
+    dividend_count
   ]);
 
   function handleCashDay() {
@@ -119,10 +132,11 @@ export default function MainForm() {
     form.setFieldValue("debt_credit_bank", credit_bank_new);
   }
 
-  function handleSubClickAdd() {
-    form.setFieldValue("passive_buisnes", [...(passive_buisnes || []), {}]);
-
-    // console.log(estate_in.map((e) => e.name_cost))
+  function handleSubClickAdd(event, id_uniq) {
+    form.setFieldValue("passive_buisnes", [
+      ...(passive_buisnes || []),
+      { id: id_uniq },
+    ]);
   }
 
   function handleSubClickRem(removedItem) {
@@ -131,26 +145,33 @@ export default function MainForm() {
     }
     form.setFieldValue(
       "passive_buisnes",
-      // passive_buisnes.filter((item) => (item?.name !== removedItem?.name || item?.name_cost !== removedItem?.name_cost))
-      passive_buisnes.filter((item) => (item?.index !== removedItem?.index))
+      passive_buisnes.filter((item) => item?.id !== removedItem?.id)
     );
-    console.log(removedItem, passive_buisnes)
   }
 
-  const handelChangeIn = (event, item) => {
-    const value_name = event.target.value
-    // console.log(passive_buisnes.map((e) => e?.index))
-    form.setFieldValue("passive_buisnes", ((passive_buisnes && Array.isArray(passive_buisnes)) ? passive_buisnes.map((e) => (item.index === e.index ? {
-      ...e,
-      name: value_name   
-    } : e)) : undefined))
-    passive_buisnes.map((e) => console.log(e.name))
+  const handelChangeIn = (event,  item) => {
+    const value_name = event.target.value;
 
-    console.log(estate_in[0])
-    console.log(passive_buisnes[0])
-    console.log(value_name)
-
+    console.log(event.target)
+    form.setFieldValue(
+      "passive_buisnes",
+      passive_buisnes && Array.isArray(passive_buisnes)
+        ? passive_buisnes.map((e) =>
+            item.id === e.id
+              ? {
+                  ...e,
+                  [event.target.name]: value_name,
+                
+                }
+              : e
+          )
+        : undefined
+    );
   };
+
+  const handleChange = (event) => {
+    console.log(event)
+  }
 
   return (
     <>
@@ -165,20 +186,26 @@ export default function MainForm() {
           <div className="block">
             <div className="left_column">
               <Form.Item name="earnings" label="Зароботок:">
-                <InputNumber placeholder="Заработок" />
+                <InputNumber />
               </Form.Item>
               <Form.Item name="capital_investments" label="Капиталовложения, %">
-                <InputNumber placeholder="Капиталовложения, %" />
+                <InputNumber />
               </Form.Item>
-              <Form.Item name="dividend" label="Девиденды">
-                <InputNumber placeholder="Девиденды" />
-              </Form.Item>
+              <AddedForm
+                name_main={"dividend"}
+                placeholder={"Девиденды"}
+                placeholder_name={"Название актива"}
+                placeholder_cost={"Доходность"}
+                value={dividend_count}
+                onChange={handleChange}
+              />
               <AddedForm
                 name_main={"cost_real_estate"}
                 placeholder={"Недвижимость"}
                 placeholder_name={"Наименование"}
                 placeholder_cost={"Доход"}
                 value={cost_real_estate}
+                onChange={handleChange}
               />
               <AddedForm
                 name_main={"cost_buiznes"}
@@ -186,12 +213,13 @@ export default function MainForm() {
                 placeholder_name={"Наименование"}
                 placeholder_cost={"Доход"}
                 value={cost_buizneses}
+                onChange={handleChange}
               />
             </div>
             <div className="right_column">
               <div className="income_itog">
                 <Form.Item name="passive_income" label="Пассивный доход">
-                  <InputNumber disabled placeholder="Пассивный доход" />
+                  <InputNumber disabled />
                 </Form.Item>
                 <Form.Item name="all_income" label="Общий доход">
                   <InputNumber disabled placeholder="Общий доход" />
@@ -205,51 +233,51 @@ export default function MainForm() {
           <div className="block">
             <div className="left_column">
               <Form.Item name="tallage" label="Налоги">
-                <InputNumber placeholder="Налоги" />
+                <InputNumber />
               </Form.Item>
               <Form.Item name="mortageg_pay" label="Оплата ипотеки">
-                <InputNumber placeholder="Оплата ипотеки" />
+                <InputNumber />
               </Form.Item>
               <Form.Item name="credit_edu" label="Кредит на образование">
-                <InputNumber placeholder="Кредит на образование" />
+                <InputNumber />
               </Form.Item>
               <Form.Item
                 name="credit_auto"
                 label="Оплата кредита на автомобиль"
               >
-                <InputNumber placeholder="Оплата кредита на автомобиль" />
+                <InputNumber />
               </Form.Item>
               <Form.Item
                 name="credit_card"
                 label="Выплаты по кредитной карточке"
               >
-                <InputNumber placeholder="Выплаты по кредитной карточке" />
+                <InputNumber />
               </Form.Item>
               <Form.Item
                 name="small_credits"
                 label="Розничные расходы (мелкие кредиты)"
               >
-                <InputNumber placeholder="Розничные расходы (мелкие кредиты)" />
+                <InputNumber />
               </Form.Item>
               <Form.Item name="other_expenses" label="Другие расходы">
-                <InputNumber placeholder="Другие расходы" />
+                <InputNumber />
               </Form.Item>
               <Form.Item name="cgildren_expenses" label="Расходы на детей">
-                <InputNumber disabled placeholder="Расходы на детей" />
+                <InputNumber disabled />
               </Form.Item>
               <Form.Item name="credit_bank" label="Оплата кредита банка">
-                <InputNumber placeholder="Оплата кредита банка" />
+                <InputNumber />
               </Form.Item>
             </div>
             <div className="right_column">
               <Form.Item name="count_child" label="Количество детей">
-                <InputNumber placeholder="Количество детей" />
+                <InputNumber />
               </Form.Item>
               <Form.Item name="child_exp" label="Расходы на ребенка">
-                <InputNumber placeholder="Расходы на ребенка" />
+                <InputNumber />
               </Form.Item>
               <Form.Item name="all_expenses" label="Общий расход">
-                <InputNumber disabled placeholder="Общий расход" />
+                <InputNumber disabled />
               </Form.Item>
             </div>
           </div>
@@ -260,7 +288,7 @@ export default function MainForm() {
             name="month_income"
             label="Ежемесячный доход"
           >
-            <InputNumber disabled placeholder="Ежемесячный доход" />
+            <InputNumber disabled />
           </Form.Item>
         </div>
         <Typography.Title level={3} className="name_divade_chapter">
@@ -272,7 +300,7 @@ export default function MainForm() {
               Активы{" "}
             </Typography.Title>
             <Form.Item name="saving" label="Сбережения">
-              <InputNumber placeholder="Сбережения" />
+              <InputNumber />
             </Form.Item>
             <AddedForm
               three_item
@@ -281,7 +309,8 @@ export default function MainForm() {
               placeholder_name={"Наименование"}
               placeholder_cost={"Цена"}
               placeholder_count={"Количество"}
-              // value={fondes}
+              value={fondes}
+              onChange={handleChange}
             />
             <AddedForm
               three_item
@@ -302,7 +331,10 @@ export default function MainForm() {
               placeholder_name={"Наименование"}
               placeholder_cost={"Цена"}
               placeholder_count={"Первый взнос"}
-              // value={buisnes}
+              onClickAdd={handleSubClickAdd}
+              onClickRem={handleSubClickRem}
+              onChange={handelChangeIn}
+              value={buisnes}
             />
           </div>
           <div className="right_column">
@@ -310,19 +342,19 @@ export default function MainForm() {
               Пассивы{" "}
             </Typography.Title>
             <Form.Item name="mortageg" label="Ипотека">
-              <InputNumber placeholder="Ипотека" />
+              <InputNumber />
             </Form.Item>
             <Form.Item name="credit_education" label="Кредит на образование">
-              <InputNumber placeholder="Кредит на образование" />
+              <InputNumber />
             </Form.Item>
             <Form.Item name="credit_automob" label="Кредит на автомобиль">
-              <InputNumber placeholder="Кредит на автомобиль" />
+              <InputNumber />
             </Form.Item>
             <Form.Item name="debt_credit_card" label="Долг по кредитным картам">
-              <InputNumber placeholder="Долг по кредитным картам" />
+              <InputNumber />
             </Form.Item>
             <Form.Item name="debt_small_credit" label="Сумма мелких кредитов">
-              <InputNumber placeholder="Сумма мелких кредитов" />
+              <InputNumber />
             </Form.Item>
             <AddedForm
               name_main={"passive_buisnes"}
@@ -332,7 +364,7 @@ export default function MainForm() {
               value={passive_buisnes}
             />
             <Form.Item name="debt_credit_bank" label="Кредит банка">
-              <InputNumber placeholder="Кредит банка" />
+              <InputNumber />
             </Form.Item>
           </div>
           <ButtonCash onClick={handleCashDay} className="button_cash" />
