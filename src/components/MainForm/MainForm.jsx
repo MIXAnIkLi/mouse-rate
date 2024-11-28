@@ -33,6 +33,8 @@ export default function MainForm() {
           return acc + (curr && curr.name_cost ? curr.name_cost : 0);
         }, 0)
       : 0;
+  const passive_income = useWatch('passive_income', form)
+  
   // Chapter
   const tallage = useWatch("tallage", form);
   const mortageg_pay = useWatch("mortageg_pay", form);
@@ -45,6 +47,7 @@ export default function MainForm() {
   const credit_bank = useWatch("credit_bank", form);
   const count_child = useWatch("count_child", form);
   const child_exp = useWatch("child_exp", form);
+  const all_expenses = useWatch('all_expenses', form)
 
   // Active
   // const saving = useWatch("saving", form);
@@ -105,21 +108,44 @@ export default function MainForm() {
     count_child,
     child_exp,
     dividend_count,
+    passive_buisnes,
   ]);
+
+  useEffect(() => {
+    passive_income > all_expenses &&  all_expenses !== 0 ? alert('Вы победили!!!') : ''
+  }, [passive_income,all_expenses])
 
   function handleCashDay() {
     const mortageg_new =
       parseFloat(mortageg || 0) - parseFloat(mortageg_pay || 0);
+    if (mortageg_new === 0) {
+      form.setFieldValue("mortageg_pay", 0);
+    }
     const credit_education_new =
       parseFloat(credit_education || 0) - parseFloat(credit_edu || 0);
+    if (credit_education_new === 0) {
+      form.setFieldValue("credit_edu", 0);
+    }
     const credit_automob_new =
       parseFloat(credit_automob || 0) - parseFloat(credit_auto || 0);
+    if (credit_automob_new === 0) {
+      form.setFieldValue("credit_auto", 0);
+    }
     const credit_card_new =
       parseFloat(debt_credit_card || 0) - parseFloat(credit_card || 0);
+      if (credit_card_new === 0) {
+        form.setFieldValue("credit_card", 0);
+      }
     const small_credits_new =
       parseFloat(debt_small_credit || 0) - parseFloat(small_credits || 0);
+      if (small_credits_new === 0) {
+        form.setFieldValue("small_credits", 0);
+      }
     const credit_bank_new =
       parseFloat(debt_credit_bank || 0) - parseFloat(credit_bank || 0);
+      if (credit_bank_new === 0) {
+        form.setFieldValue("credit_bank", 0);
+      }
     form.setFieldValue("mortageg", mortageg_new);
     form.setFieldValue("credit_education", credit_education_new);
     form.setFieldValue("credit_automob", credit_automob_new);
@@ -147,7 +173,10 @@ export default function MainForm() {
 
   const handelChangeIn = (event, item) => {
     const value_name = event.target.value;
-    console.log(event.target.name === 'name');
+    const currentValueCost =
+      event.target.name === "name_cost" ? event.target.value : item.name_cost;
+    const currentValueCount =
+      event.target.name === "name_count" ? event.target.value : item.name_count;
     form.setFieldValue(
       "passive_buisnes",
       passive_buisnes && Array.isArray(passive_buisnes)
@@ -155,17 +184,36 @@ export default function MainForm() {
             item.id === e.id
               ? {
                   ...e,
-                  [event.target.name === 'name' ? event.target.name : 0]: value_name,
-                  name_cost: Number(item?.name_cost) && Number(item?.name_count) ? Number(item?.name_cost) - Number(item?.name_count) : []
+                  [event.target.name === "name" ? event.target.name : 0]:
+                    value_name,
+                  name_cost:
+                    Number(currentValueCost) && Number(currentValueCount)
+                      ? Number(currentValueCost) - Number(currentValueCount)
+                      : [],
                 }
               : e
           )
         : undefined
     );
+
+    // form.setFieldValue(
+    //   "mortageg",
+    //   passive_buisnes && Array.isArray(passive_buisnes)
+    //     ? passive_buisnes.map((e) =>
+    //         parseFloat(mortageg || 0) + parseFloat(e.name_cost)
+    //     // console.log(mortageg)
+    //       )
+    //     : undefined
+    // );
+    // console.log(mortageg);
   };
 
   const handleChange = (event) => {
     console.log(event);
+  };
+
+  const hadleChangeMortageg = () => {
+    console.log(1);
   };
 
   return (
@@ -357,6 +405,7 @@ export default function MainForm() {
               placeholder_name={"Наименование"}
               placeholder_cost={"Цена"}
               value={passive_buisnes}
+              onChange={hadleChangeMortageg}
             />
             <Form.Item name="debt_credit_bank" label="Кредит банка">
               <InputNumber />
