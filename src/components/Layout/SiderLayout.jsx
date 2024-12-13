@@ -3,33 +3,37 @@ import {
   FileOutlined,
   PieChartOutlined,
   UserOutlined,
+  BranchesOutlined,
+  FileTextOutlined,
 } from "@ant-design/icons";
-import { Layout, Menu,  } from "antd";
-import PropTypes from 'prop-types';
+import { Layout, Menu } from "antd";
+import PropTypes from "prop-types";
+import { Link, Routes, Route} from "react-router-dom";
+import MainPage from "../MainPage/MainPage"
 
-export default function SiderLayout({collapsed, setCollapsed}) {
-  const {Sider} = Layout
-  function getItem(label, key, icon, children) {
+export default function SiderLayout({ collapsed, setCollapsed }) {
+  const { Sider } = Layout;
+  function getItem(label, key, icon, to, children) {
     return {
       key,
       icon,
       children,
-      label,
+      label: <Link to={to}>{label}</Link>,
     };
   }
   const items = [
-    getItem("Правила игры", "1", <PieChartOutlined />),
-    getItem("Добавить игрока", "2", <DesktopOutlined />),
-    getItem("Игроки", "sub1", <UserOutlined />, [
-      getItem("Миша", "3"),
-      getItem("Ксюша", "4"),
+    getItem("Главная страница", "1", <DesktopOutlined />, "/"),
+    getItem("Бланк игрока", "2", <FileTextOutlined />, "/player-form"),
+    getItem("Правила игры", "3", <PieChartOutlined />, "/rules"),
+    getItem("Добавить игрока", "4", <BranchesOutlined />, "/add-player"),
+    getItem("Игроки", "sub1", <UserOutlined />, null, [
+      getItem("Миша", "5", null, "/players/1"),
+      getItem("Ксюша", "6", null, "/players/2"), 
     ]),
-    getItem("Скачать бланк", "9", <FileOutlined />),
+    getItem("Скачать бланк", "9", <FileOutlined /> , "/download-form"),
   ];
-  
 
   return (
-
     <Sider
       trigger={null}
       collapsible
@@ -43,7 +47,12 @@ export default function SiderLayout({collapsed, setCollapsed}) {
         mode="inline"
         items={items}
       />
+       <Routes>
+      <Route path="/"  element={<MainPage/>} />
+    </Routes>
     </Sider>
+    
+   
   );
 }
 
