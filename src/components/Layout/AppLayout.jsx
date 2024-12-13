@@ -4,10 +4,12 @@ import SiderLayout from "./SiderLayout";
 import ContentLayout from "./ContentLayout/ContentLayout";
 import { useState } from "react";
 
+
 export default function AppLayout() {
   const [collapsed, setCollapsed] = useState(false);
 
   return (
+    <>
     <Layout
       style={{
         minHeight: "100vh",
@@ -21,5 +23,7 @@ export default function AppLayout() {
         <ContentLayout />
       </Layout>
     </Layout>
+    
+    </>
   );
 }
