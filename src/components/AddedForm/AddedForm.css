@@ -1,9 +1,22 @@
 .button_add {
+  
   font-size: 16px;
   line-height: 1.2;
   height: 16px;
+  transition: background-color, .3s ;
+  border-style:double !important;
 }
 
 .button_add:focus {
   outline: none;
+}
+
+.button_add:hover {
+  background-color:azure !important;
+  border-color: azure !important;
+}
+
+.AddedFormSpan {
+  margin-right: 0.5rem;
+  margin-left: 50px;
 }

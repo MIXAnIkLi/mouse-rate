@@ -33,8 +33,8 @@ export default function MainForm() {
           return acc + (curr && curr.name_cost ? curr.name_cost : 0);
         }, 0)
       : 0;
-  const passive_income = useWatch('passive_income', form)
-  
+  const passive_income = useWatch("passive_income", form);
+
   // Chapter
   const tallage = useWatch("tallage", form);
   const mortageg_pay = useWatch("mortageg_pay", form);
@@ -47,7 +47,7 @@ export default function MainForm() {
   const credit_bank = useWatch("credit_bank", form);
   const count_child = useWatch("count_child", form);
   const child_exp = useWatch("child_exp", form);
-  const all_expenses = useWatch('all_expenses', form)
+  const all_expenses = useWatch("all_expenses", form);
 
   // Active
   // const saving = useWatch("saving", form);
@@ -112,8 +112,10 @@ export default function MainForm() {
   ]);
 
   useEffect(() => {
-    passive_income > all_expenses &&  all_expenses !== 0 ? alert('Вы победили!!!') : ''
-  }, [passive_income,all_expenses])
+    passive_income > all_expenses && all_expenses !== 0
+      ? alert("Вы победили!!!")
+      : "";
+  }, [passive_income, all_expenses]);
 
   function handleCashDay() {
     const mortageg_new =
@@ -133,19 +135,19 @@ export default function MainForm() {
     }
     const credit_card_new =
       parseFloat(debt_credit_card || 0) - parseFloat(credit_card || 0);
-      if (credit_card_new === 0) {
-        form.setFieldValue("credit_card", 0);
-      }
+    if (credit_card_new === 0) {
+      form.setFieldValue("credit_card", 0);
+    }
     const small_credits_new =
       parseFloat(debt_small_credit || 0) - parseFloat(small_credits || 0);
-      if (small_credits_new === 0) {
-        form.setFieldValue("small_credits", 0);
-      }
+    if (small_credits_new === 0) {
+      form.setFieldValue("small_credits", 0);
+    }
     const credit_bank_new =
       parseFloat(debt_credit_bank || 0) - parseFloat(credit_bank || 0);
-      if (credit_bank_new === 0) {
-        form.setFieldValue("credit_bank", 0);
-      }
+    if (credit_bank_new === 0) {
+      form.setFieldValue("credit_bank", 0);
+    }
     form.setFieldValue("mortageg", mortageg_new);
     form.setFieldValue("credit_education", credit_education_new);
     form.setFieldValue("credit_automob", credit_automob_new);
@@ -195,17 +197,6 @@ export default function MainForm() {
           )
         : undefined
     );
-
-    // form.setFieldValue(
-    //   "mortageg",
-    //   passive_buisnes && Array.isArray(passive_buisnes)
-    //     ? passive_buisnes.map((e) =>
-    //         parseFloat(mortageg || 0) + parseFloat(e.name_cost)
-    //     // console.log(mortageg)
-    //       )
-    //     : undefined
-    // );
-    // console.log(mortageg);
   };
 
   const handleChange = (event) => {
@@ -228,10 +219,16 @@ export default function MainForm() {
           </Typography.Title>
           <div className="block">
             <div className="left_column">
-              <Form.Item name="earnings" label="Зароботок:">
+              <Form.Item
+                name="earnings"
+                label={<span className="form__item">Заработок</span>}
+              >
                 <InputNumber />
               </Form.Item>
-              <Form.Item name="capital_investments" label="Капиталовложения, %">
+              <Form.Item
+                name="capital_investments"
+                label={<span className="form__item">Капиталовложения, %</span>}
+              >
                 <InputNumber />
               </Form.Item>
               <AddedForm
@@ -261,10 +258,16 @@ export default function MainForm() {
             </div>
             <div className="right_column">
               <div className="income_itog">
-                <Form.Item name="passive_income" label="Пассивный доход">
+                <Form.Item
+                  name="passive_income"
+                  label={<span className="form__item">Пассивный доход</span>}
+                >
                   <InputNumber disabled />
                 </Form.Item>
-                <Form.Item name="all_income" label="Общий доход">
+                <Form.Item
+                  name="all_income"
+                  label={<span className="form__item">Общий доход</span>}
+                >
                   <InputNumber disabled placeholder="Общий доход" />
                 </Form.Item>
               </div>
@@ -275,51 +278,92 @@ export default function MainForm() {
           </Typography.Title>
           <div className="block">
             <div className="left_column">
-              <Form.Item name="tallage" label="Налоги">
+              <Form.Item
+                name="tallage"
+                label={<span className="form__item">Налоги</span>}
+              >
                 <InputNumber />
               </Form.Item>
-              <Form.Item name="mortageg_pay" label="Оплата ипотеки">
+              <Form.Item
+                name="mortageg_pay"
+                label={<span className="form__item">Оплата ипотеки</span>}
+              >
                 <InputNumber />
               </Form.Item>
-              <Form.Item name="credit_edu" label="Кредит на образование">
+              <Form.Item
+                name="credit_edu"
+                label={
+                  <span className="form__item">Кредит на образование</span>
+                }
+              >
                 <InputNumber />
               </Form.Item>
               <Form.Item
                 name="credit_auto"
-                label="Оплата кредита на автомобиль"
+                label={
+                  <span className="form__item">
+                    Оплата кредита на автомобиль
+                  </span>
+                }
               >
                 <InputNumber />
               </Form.Item>
               <Form.Item
                 name="credit_card"
-                label="Выплаты по кредитной карточке"
+                label={
+                  <span className="form__item">
+                    Выплаты по кредитной карточке
+                  </span>
+                }
               >
                 <InputNumber />
               </Form.Item>
               <Form.Item
                 name="small_credits"
-                label="Розничные расходы (мелкие кредиты)"
+                label={
+                  <span className="form__item">
+                    Розничные расходы (мелкие кредиты)
+                  </span>
+                }
               >
                 <InputNumber />
               </Form.Item>
-              <Form.Item name="other_expenses" label="Другие расходы">
+              <Form.Item
+                name="other_expenses"
+                label={<span className="form__item">Другие расходы</span>}
+              >
                 <InputNumber />
               </Form.Item>
-              <Form.Item name="cgildren_expenses" label="Расходы на детей">
+              <Form.Item
+                name="cgildren_expenses"
+                label={<span className="form__item">Расходы на детей</span>}
+              >
                 <InputNumber disabled />
               </Form.Item>
-              <Form.Item name="credit_bank" label="Оплата кредита банка">
+              <Form.Item
+                name="credit_bank"
+                label={<span className="form__item">Оплата кредита банка</span>}
+              >
                 <InputNumber />
               </Form.Item>
             </div>
             <div className="right_column">
-              <Form.Item name="count_child" label="Количество детей">
+              <Form.Item
+                name="count_child"
+                label={<span className="form__item">Количество детей</span>}
+              >
                 <InputNumber />
               </Form.Item>
-              <Form.Item name="child_exp" label="Расходы на ребенка">
+              <Form.Item
+                name="child_exp"
+                label={<span className="form__item">Расходы на ребенка</span>}
+              >
                 <InputNumber />
               </Form.Item>
-              <Form.Item name="all_expenses" label="Общий расход">
+              <Form.Item
+                name="all_expenses"
+                label={<span className="form__item">Общий расход</span>}
+              >
                 <InputNumber disabled />
               </Form.Item>
             </div>
@@ -329,7 +373,7 @@ export default function MainForm() {
           <Form.Item
             className="month_income_input"
             name="month_income"
-            label="Ежемесячный доход"
+            label={<span className="form__item">Ежемесячный доход</span>}
           >
             <InputNumber disabled />
           </Form.Item>
@@ -342,7 +386,10 @@ export default function MainForm() {
             <Typography.Title level={4} className="name_chapter">
               Активы{" "}
             </Typography.Title>
-            <Form.Item name="saving" label="Сбережения">
+            <Form.Item
+              name="saving"
+              label={<span className="form__item">Сбережения</span>}
+            >
               <InputNumber />
             </Form.Item>
             <AddedForm
@@ -384,19 +431,36 @@ export default function MainForm() {
             <Typography.Title level={4} className="name_chapter">
               Пассивы{" "}
             </Typography.Title>
-            <Form.Item name="mortageg" label="Ипотека">
+            <Form.Item
+              name="mortageg"
+              label={<span className="form__item">Ипотека</span>}
+            >
               <InputNumber />
             </Form.Item>
-            <Form.Item name="credit_education" label="Кредит на образование">
+            <Form.Item
+              name="credit_education"
+              label={<span className="form__item">Кредит на образование</span>}
+            >
               <InputNumber />
             </Form.Item>
-            <Form.Item name="credit_automob" label="Кредит на автомобиль">
+            <Form.Item
+              name="credit_automob"
+              label={<span className="form__item">Кредит на автомобиль</span>}
+            >
               <InputNumber />
             </Form.Item>
-            <Form.Item name="debt_credit_card" label="Долг по кредитным картам">
+            <Form.Item
+              name="debt_credit_card"
+              label={
+                <span className="form__item">Долг по кредитным картам</span>
+              }
+            >
               <InputNumber />
             </Form.Item>
-            <Form.Item name="debt_small_credit" label="Сумма мелких кредитов">
+            <Form.Item
+              name="debt_small_credit"
+              label={<span className="form__item">Сумма мелких кредитов</span>}
+            >
               <InputNumber />
             </Form.Item>
             <AddedForm
@@ -407,7 +471,10 @@ export default function MainForm() {
               value={passive_buisnes}
               onChange={hadleChangeMortageg}
             />
-            <Form.Item name="debt_credit_bank" label="Кредит банка">
+            <Form.Item
+              name="debt_credit_bank"
+              label={<span className="form__item">Кредит банка</span>}
+            >
               <InputNumber />
             </Form.Item>
           </div>

@@ -9,6 +9,7 @@ export default function EditableParagraph({ placeholder }) {
 
   return (
     <Paragraph
+    className="paragraph"
       editable={{
         onChange: setEditableStr,
         onStart: () => setEditing(!editing),

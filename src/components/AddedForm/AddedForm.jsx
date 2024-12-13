@@ -22,7 +22,7 @@ export default function AddedForm({
       {(fields, { add, remove }) => (
         <>
           <Form.Item>
-            <span className="AddedFormSpan">{placeholder}:</span>
+            <span className="form__item AddedFormSpan">{placeholder}:</span>
             <Button
               className="button_add"
               type="dashed"
@@ -49,6 +49,7 @@ export default function AddedForm({
               
               <Form.Item
                 {...restField}
+                className="form__item"
                 name={[name, "name"]}
                 rules={[
                   {
