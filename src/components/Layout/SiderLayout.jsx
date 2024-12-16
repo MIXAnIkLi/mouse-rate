@@ -8,7 +8,7 @@ import {
 } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
 import PropTypes from "prop-types";
-import { Link, Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function SiderLayout({ collapsed, setCollapsed }) {
   const { Sider } = Layout;
@@ -39,6 +39,7 @@ export default function SiderLayout({ collapsed, setCollapsed }) {
         collapsible
         collapsed={collapsed}
         onCollapse={(value) => setCollapsed(value)}
+        style={{ position: "sticky", top: 0, height: "100vh", overflow: "auto" }}        
       >
         <div className="demo-logo-vertical" />
         <Menu
@@ -46,10 +47,9 @@ export default function SiderLayout({ collapsed, setCollapsed }) {
           defaultSelectedKeys={["1"]}
           mode="inline"
           items={items}
+          style={{ height: "100%" }}
         />
       </Sider>
-
-      <Outlet />
     </>
   );
 }

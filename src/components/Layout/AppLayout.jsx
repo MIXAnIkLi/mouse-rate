@@ -1,8 +1,8 @@
 import { Layout } from "antd";
-import HeaderLayout from "./HeaderLayout";
+import HeaderLayout from "./HeaderLayout/HeaderLayout";
 import SiderLayout from "./SiderLayout";
-import ContentLayout from "./ContentLayout/ContentLayout";
 import { useState } from "react";
+import { Outlet } from "react-router-dom";
 
 
 export default function AppLayout() {
@@ -13,14 +13,14 @@ export default function AppLayout() {
     <Layout
       style={{
         minHeight: "100vh",
-        width: "100vw",
+        width: "98.86vw",
       }}
     >
       <SiderLayout collapsed={collapsed} setCollapsed={setCollapsed} />
       <Layout>
         <HeaderLayout collapsed={collapsed} setCollapsed={setCollapsed} />
 
-        <ContentLayout />
+        <Outlet />
       </Layout>
     </Layout>
     

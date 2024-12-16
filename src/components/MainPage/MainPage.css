@@ -1,0 +1,116 @@
+
+.content {
+  scroll-snap-align: start;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+
+}
+
+.content__back-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 120%;
+  height: 120%;
+  background-image: url('./Flow_c.jpg');
+  background-position: center;
+  filter: blur(5px);
+  z-index: 1;
+  transform: translate(-14%, -10%);
+}
+
+.content__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.65);
+  z-index: 2;
+  display: flex;
+}
+
+.content__text-withotq {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.content__text {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  position: absolute;
+  z-index: 3;
+  
+}
+
+.content__headline {
+  color:aliceblue;
+  text-align: center;
+  margin-top: 20px; 
+  margin-left: 20px; 
+  font-weight: 400;
+}
+
+.content_paragraph{
+  color:aliceblue;
+  font-size: 20px ;
+  text-align: center;
+  font-weight: 100;
+}
+
+
+.content__quote {
+  text-align: end;
+  justify-self: flex-end;
+}
+
+
+
+q {
+  font-style: italic;
+  color: blanchedalmond;
+}
+
+q::before,
+q::after {
+  content: '"';
+  color: blanchedalmond;
+}
+
+.about-game {
+  scroll-snap-align: start;
+  height: 100vh;
+  padding: 1rem 1rem 1rem 1rem;
+  display: flex;
+  color: black;
+  min-width: 50vw;
+}
+
+.about-game_text {
+  flex-direction: column;
+  align-self: center;
+}
+
+.about-game_paragraph {
+  text-align: justify;
+}
+
+.about-game_video {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+} 
+
+.about-game_video iframe{
+  padding: 1rem 1rem 1rem 1rem;
+  min-height: 50vh;
+  min-width: 50vw;
+}
+
+

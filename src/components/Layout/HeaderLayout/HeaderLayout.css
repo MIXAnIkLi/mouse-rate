@@ -1,0 +1,22 @@
+.header { 
+  padding: 0;
+  background-color :rgba(255, 255, 255, 0.0001);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.header__button { 
+  min-width: 64px !important;
+  min-height: 64px !important;
+  z-index: 11;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.header__button:focus {
+  outline:none;
+}
+
+.header__button:hover {
+  border-color: black;
+}
