@@ -1,0 +1,40 @@
+
+.advantage {
+  display: flex;
+  flex-direction: row;
+  min-width: 100%;
+  justify-content: center;
+}
+
+.advantage--right {
+  flex-direction: row-reverse;
+}
+
+.advantage__text-wraper {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+}
+
+.advantage__text-headline {
+  color: black;
+  
+  align-self: start;
+}
+
+.advantage__text-paragraph {
+  color: black;
+  font-size: x-large;
+  max-width: 700px;
+  align-self: start;
+}
+
+.advantage__img {
+  align-self: center;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.advantage__img-block {
+  padding: 4rem;
+}

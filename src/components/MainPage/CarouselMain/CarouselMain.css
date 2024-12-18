@@ -1,0 +1,9 @@
+
+.caurusel {
+  margin: 0;
+  text-align: center;
+}
+
+.caurusel-item {
+  max-width: 1000px;
+}

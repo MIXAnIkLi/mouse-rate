@@ -6,14 +6,14 @@ import { Outlet } from "react-router-dom";
 
 
 export default function AppLayout() {
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
 
   return (
     <>
     <Layout
       style={{
         minHeight: "100vh",
-        width: "98.86vw",
+        width: "100vw",
       }}
     >
       <SiderLayout collapsed={collapsed} setCollapsed={setCollapsed} />
