@@ -122,8 +122,18 @@ q::after {
 
 .aboutus {
   display: flex;
-  min-height: 100vh;
+  min-height: 50vh;
   flex-direction: column;
   justify-content: center;
+  background-color: #002140;
 }
 
+.aboutus {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.aboutus__text {
+  width: 200px;
+}

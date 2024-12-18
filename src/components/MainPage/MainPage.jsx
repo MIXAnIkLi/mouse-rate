@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { CoffeeOutlined } from "@ant-design/icons";
 import "./MainPage.css";
 import SectionAdvantage from "./SectionAdvantage/SectionAdvantage";
 import CarouselMain from "./CarouselMain/CarouselMain";
@@ -100,7 +100,38 @@ export default function MainPage() {
         <CarouselMain />
       </div>
       <div className="aboutus">
-        
+        <div className="aboutus__text">
+          <div className="aboutus__logo">
+            <CoffeeOutlined className="aboutus__icon" />
+          </div>
+          <p className="aboutus_paragraph">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit odit
+            quod maxime omnis perspiciatis fuga facilis dicta pariatur corrupti
+            tempora quas vero reprehenderit sint, expedita delectus eaque minus!
+            Dignissimos, dolorem!
+          </p>
+        </div>
+        <div className="aboutus__contact">
+          <div className="aboutus__email">
+            <h3>Email</h3>
+            <a href="email:mailto:example@example.com"> xample@example.com </a>
+          </div>
+          <div className="aboutus__phone">
+            <h3>Phone</h3>
+            <a href="tel:7893616731">+7893616731</a>
+          </div>
+          <div className="aboutus__adress">
+            <address>
+              <strong>Cash Flow</strong>
+              <br />
+              ул. Смольная
+              <br />
+              г. Москва, д.3
+              <br />
+            </address>
+          </div>
+        </div>
+        <div className="aboutus_follow"></div>
       </div>
     </div>
   );
