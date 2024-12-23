@@ -5,5 +5,20 @@
 }
 
 .caurusel-item {
-  max-width: 1000px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  margin: 0;
+  padding: 0;
+  
+}
+
+.caurusel-item {
+  max-width: 50%;
+  min-height: 50%;
+  object-fit: contain; 
+  display: block; 
+  margin: 0 auto;
+  
 }

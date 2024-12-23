@@ -27,14 +27,17 @@
   font-size: x-large;
   max-width: 700px;
   align-self: start;
+  
 }
 
 .advantage__img {
   align-self: center;
   border-radius: 20px;
   overflow: hidden;
+  height: 300px;  
 }
 
 .advantage__img-block {
   padding: 4rem;
+  
 }
