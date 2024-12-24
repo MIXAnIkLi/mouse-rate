@@ -2,6 +2,12 @@ h3 {
   margin: 0;
 }
 
+.body {
+  margin: 0;
+  height: 100vh;
+  scroll-snap-type: y mandatory; /* Включаем привязку скролла по вертикали */
+  overflow-y: scroll;
+}
 
 a {
     color: inherit !important; /* Наследует цвет текста от родительского элемента */
@@ -155,8 +161,12 @@ q::after {
   min-height: 50vh;
   min-width: 650px;
 }
+.advantageSection {
+  scroll-snap-align: start;
+}
 
 .carousel-main {
+  scroll-snap-align: start;
   display: flex;
   min-height: 100vh;
   flex-direction: column;
@@ -169,6 +179,7 @@ q::after {
   flex-direction: column;
   justify-content: center;
   background-color: #002140;
+  scroll-snap-align: start;
 }
 
 .aboutus {

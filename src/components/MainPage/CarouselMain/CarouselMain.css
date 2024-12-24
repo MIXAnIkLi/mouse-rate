@@ -2,6 +2,7 @@
 .caurusel {
   margin: 0;
   text-align: center;
+
 }
 
 .caurusel-item {
@@ -11,7 +12,7 @@
   height: 50vh;
   margin: 0;
   padding: 0;
-  
+
 }
 
 .caurusel-item {
@@ -19,6 +20,6 @@
   min-height: 50%;
   object-fit: contain; 
   display: block; 
-  margin: 0 auto;
-  
+  margin: 0 auto;  
+
 }

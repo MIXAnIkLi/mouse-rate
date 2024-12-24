@@ -73,6 +73,7 @@ export default function MainPage() {
             ></iframe>{" "}
           </div>
         </div>
+        <div className="advantageSection">
         <SectionAdvantage
           headline="Используем игровую форму"
           paragraph="Игра является одним из лучших инструментов мотивации. Поэтому,обучаться с тренажером CashGo весело и интересно"
@@ -99,7 +100,7 @@ export default function MainPage() {
           source="src/components/MainPage/SectionAdvantage/Cognative.png"
           alternative="Фото не найдно"
         />
-
+      </div>
         <div className="carousel-main">
           <CarouselMain />
         </div>

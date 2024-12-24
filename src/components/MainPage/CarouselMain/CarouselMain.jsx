@@ -7,7 +7,7 @@ export default function CarouselMain() {
       <Carousel
         arrows
         infinite={true}
-        autoplay
+        // autoplay
         className="caurusel"
       >
         <div className="caurusel-item">
