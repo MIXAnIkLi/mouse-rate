@@ -145,9 +145,14 @@ q::after {
   align-self: center;
 }
 
+.about-game_headline {
+  margin-bottom: 1rem;
+}
+
 .about-game_paragraph {
   text-align: justify;
   font-size: large;
+  margin: 0;
 }
 
 .about-game_video {
@@ -155,12 +160,14 @@ q::after {
   flex-direction: row;
   align-items: center;
   margin-left: 50px;
+  padding-top: 3rem;
 }
 
 .about-game_video iframe {
   min-height: 50vh;
   min-width: 650px;
 }
+
 .advantageSection {
   scroll-snap-align: start;
 }
